@@ -43,6 +43,7 @@ public class MeetingActivity extends AppCompatActivity {
 
         ((TextView)findViewById(R.id.tvMeetingId)).setText(meetingId);
 
+        setActionListeners();
     }
 
     // creating the MeetingEventListener
@@ -63,5 +64,42 @@ public class MeetingActivity extends AppCompatActivity {
         }
 
     };
+
+    private void setActionListeners() {
+        // toggle mic
+        findViewById(R.id.btnMic).setOnClickListener(view -> {
+            if (micEnabled) {
+                // this will mute the local participant's mic
+                meeting.muteMic();
+                Toast.makeText(MeetingActivity.this, "Mic Disabled", Toast.LENGTH_SHORT).show();
+            } else {
+                // this will unmute the local participant's mic
+                meeting.unmuteMic();
+                Toast.makeText(MeetingActivity.this, "Mic Enabled", Toast.LENGTH_SHORT).show();
+            }
+            micEnabled=!micEnabled;
+        });
+
+        // toggle webcam
+        findViewById(R.id.btnWebcam).setOnClickListener(view -> {
+            if (webcamEnabled) {
+                // this will disable the local participant webcam
+                meeting.disableWebcam();
+                Toast.makeText(MeetingActivity.this, "Webcam Disabled", Toast.LENGTH_SHORT).show();
+            } else {
+                // this will enable the local participant webcam
+                meeting.enableWebcam();
+                Toast.makeText(MeetingActivity.this, "Webcam Enabled", Toast.LENGTH_SHORT).show();
+            }
+            webcamEnabled=!webcamEnabled;
+        });
+
+        // leave meeting
+        findViewById(R.id.btnLeave).setOnClickListener(view -> {
+            // this will make the local participant leave the meeting
+            meeting.leave();
+        });
+
+    }
 
 }
