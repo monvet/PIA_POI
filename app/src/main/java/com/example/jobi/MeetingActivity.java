@@ -1,6 +1,8 @@
 package com.example.jobi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +46,10 @@ public class MeetingActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tvMeetingId)).setText(meetingId);
 
         setActionListeners();
+
+        final RecyclerView rvParticipants = findViewById(R.id.rvParticipants);
+        rvParticipants.setLayoutManager(new GridLayoutManager(this, 2));
+        rvParticipants.setAdapter(new ParticipantAdapter(meeting));
     }
 
     // creating the MeetingEventListener
